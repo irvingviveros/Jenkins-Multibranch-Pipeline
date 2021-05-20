@@ -2,9 +2,9 @@ pipeline {
         agent any
 
 		environment {
-			STAGE_1 = 'First'
-			STAGE_2 = 'Second'
-			STAGE_3 = 'Third'
+			STAGE_1 = "'First'"
+			STAGE_2 = "'Second'"
+			STAGE_3 = "'Third'"
 			EXECUTE = 'False'
 		}
 
