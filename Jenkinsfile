@@ -2,14 +2,14 @@ pipeline {
         agent any
 
 		environment {
-			STAGE_1 = 'First'
-			STAGE_2 = 'Second'
-			STAGE_3 = 'Third'
+			STAGE_1 = "First"
+			STAGE_2 = "Second"
+			STAGE_3 = "Third"
 			EXECUTE = 'False'
 		}
 
                 stages {
-                        stage(env.STAGE_1) {
+                        stage(STAGE_1) {
 
 				env.EXECUTE = 'True'
                                 steps {
@@ -20,7 +20,7 @@ pipeline {
                         }
 
 
-                        stage(env.STAGE_2) {
+                        stage(STAGE_2) {
 				when {
 					expression (env.EXECUTE == 'True')
 				}
@@ -32,7 +32,7 @@ pipeline {
                                 }
                         }
 
-                        stage(env.STAGE_3) {
+                        stage(STAGE_3) {
 				when {
 					expression (env.EXECUTE != 'True')
 				}
