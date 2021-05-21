@@ -1,43 +1,43 @@
 pipeline {
-        agent any
+	agent any
+		stages {
+			stage('first') {
+				
+						
+				steps {
+					sh '''
+						echo "Step -One"
+					'''
+					script {
+						env.EXECUTE = "True"
+					}
+				}
+			}
 
-		environment {
-			EXECUTE = 'False'
+
+			stage('second') {
+				when {
+					expression { EXECUTE == "True"}
+				}
+				steps {
+					sh '''
+						echo "Step -Two"
+						echo "Updating Second Stage"
+					'''
+					script {
+						echo "${EXECUTE}"
+					}
+				}
+			} 
+
+			stage('third'){
+				when {
+					expression { EXECUTE == "False"}
+				}
+				steps {
+					sh '''
+						echo "Step -Three"
+					'''
+				}
+			}
 		}
-
-                stages {
-                        stage('First') {
-
-				EXECUTE = 'True'
-                                steps {
-                                        sh '''
-                                                echo "Step One"
-                                        '''
-                                }
-                        }
-
-
-                        stage('Second') {
-				when {
-					expression (EXECUTE == 'True')
-				}
-                                steps {
-                                        sh '''
-                                                echo "Step Two"
-                                                echo "Updating Second Stage"
-                                        '''
-                                }
-                        }
-
-                        stage('Third') {
-				when {
-					expression (EXECUTE != 'True')
-				}
-                                steps {
-                                        sh '''
-                                                echo "Step Three"
-                                        '''
-                                }
-                        }
-                }
-}
